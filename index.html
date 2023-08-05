@@ -48,7 +48,26 @@
 <option value="75">6'3"</option>
 <option value="76">6'4"</option>
 <option value="77">6'5"</option>
-</select><br> <span id="heightMessage" style="display: none;">Most of our products are designed for folks of average or shorter height. Please examine the product's size chart carefully to make sure it will work for your height.</span> <br> <label for="bust">Bust: </label><select name="bust" id="bust"></select><br><br> <label for="waist">Waist: </label><select name="waist" id="waist"></select><br><br> <label for="hips">Hips: </label><select name="hips" id="hips"></select><br><br> <input type="button" value="Calculate Size" onclick="calculateSize()"></form><br>
+</select><br> 
+  <label for="bust">Bust:</label>
+<select id="bust">
+  <option value="">Select...</option>
+  ${Array.from({length: 56}, (_, i) => `<option value="${i + 25}">${i + 25}</option>`).join('')}
+</select>
+
+<label for="hips">Hips:</label>
+<select id="hips">
+  <option value="">Select...</option>
+  ${Array.from({length: 56}, (_, i) => `<option value="${i + 25}">${i + 25}</option>`).join('')}
+</select>
+
+<label for="waist">Waist:</label>
+<select id="waist">
+  <option value="">Select...</option>
+  ${Array.from({length: 56}, (_, i) => `<option value="${i + 25}">${i + 25}</option>`).join('')}
+</select>
+  
+  <span id="heightMessage" style="display: none;">Most of our products are designed for folks of average or shorter height. Please examine the product's size chart carefully to make sure it will work for your height.</span> <br> <label for="bust">Bust: </label><select name="bust" id="bust"></select><br><br> <label for="waist">Waist: </label><select name="waist" id="waist"></select><br><br> <label for="hips">Hips: </label><select name="hips" id="hips"></select><br><br> <input type="button" value="Calculate Size" onclick="calculateSize()"></form><br>
 <div id="result"></div>
 <script>// <![CDATA[
 function checkHeightMessage() {
