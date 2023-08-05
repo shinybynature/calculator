@@ -1,0 +1,588 @@
+<meta charset="UTF-8"><form>
+<p><em>This is a work in progress! We are testing the features and adding more products to the calculator...</em></p>
+<p>Note: in order for the calculator to recommend the most ideal size for you, please make sure to select the correct product, and put in your most up-to-date measurements! If you don't have a measuring tape, this may be your sign to get one! 🌻</p>
+<p>At this moment, our calculator can only read measurements in inches. If you have your measurements in cm, please <a href="https://www.google.com/search?q=cm+to+inches" target="_blank">convert the numbers into inches</a> :)</p>
+</form><meta charset="utf-8"><form>
+<p>After selecting a new product, make sure to click the Calculate Size button again to refresh the result!</p>
+<p><label for="product">Product:<br></label></p>
+</form><form id="size-calculator"><select id="product" name="product" onchange="checkSize(); checkHeightMessage()">
+<option value="Select a product">Select a product</option>
+<option value="Gingham Long Skirt">Gingham Long Skirt</option>
+<option value="Gingham Dress">Gingham Dress</option>
+<option value="Tank Top">Tank Top</option>
+<option value="Suncatcher Tee">Suncatcher Tee</option>
+<option value="Go-Getter Cropped Tee">Go-Getter Cropped Tee</option>
+<option value="Zip-Up Hoodie">Zip-Up Hoodie</option>
+<option value="Perfect Match Tennis Skirt">Perfect Match Tennis Skirt</option>
+<option value="Sweater Vest">Sweater Vest</option>
+<option value="Corduroy Jacket">Corduroy Jacket</option>
+<option value="Corduroy Dress">Corduroy Dress</option>
+<option value="Denim Shorts">Denim Shorts</option>
+<option value="Solving the Jeans Problem Jeans">Solving the Jeans Problem Jeans</option>
+<option value="Overall Shorts">Overall Shorts</option>
+<option value="Overall Jeans">Overall Jeans</option>
+<option value="Overall Dress">Overall Dress (not ready)</option>
+<option value="Denim Mini Skirt">Denim Mini Skirt (not ready)</option>
+<option value="Be Yourself Pants">Be Yourself Pants (not ready)</option>
+</select><br> <span id="productMessage" style="display: none;">The sizing for this product can be tricky! If you have doubt about the calculator's recommendation, feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.</span> <br> <label for="unit">Unit: </label><select name="unit" id="unit">
+<option value="in">Inches</option>
+</select><br><br> <label for="height">Height: </label><select id="height" name="height" onchange="checkHeightMessage()">
+<option value="59">4'11"</option>
+<option value="60">5'0"</option>
+<option value="61">5'1"</option>
+<option value="62">5'2"</option>
+<option value="63">5'3"</option>
+<option value="64">5'4"</option>
+<option value="65">5'5"</option>
+<option value="66">5'6"</option>
+<option value="67">5'7"</option>
+<option value="68">5'8"</option>
+<option value="69">5'9"</option>
+<option value="70">5'10"</option>
+<option value="71">5'11"</option>
+<option value="72">6'0"</option>
+<option value="73">6'1"</option>
+<option value="74">6'2"</option>
+<option value="75">6'3"</option>
+<option value="76">6'4"</option>
+<option value="77">6'5"</option>
+</select><br> <span id="heightMessage" style="display: none;">Most of our products are designed for folks of average or shorter height. Please examine the product's size chart carefully to make sure it will work for your height.</span> <br> <label for="bust">Bust: </label><select name="bust" id="bust"></select><br><br> <label for="waist">Waist: </label><select name="waist" id="waist"></select><br><br> <label for="hips">Hips: </label><select name="hips" id="hips"></select><br><br> <input type="button" value="Calculate Size" onclick="calculateSize()"></form><br>
+<div id="result"></div>
+<script>// <![CDATA[
+function checkHeightMessage() {
+  const height = parseInt(document.getElementById("height").value);
+  const heightMessage = document.getElementById("heightMessage");
+
+  if (height >= 68) {
+    heightMessage.style.display = "block";
+  } else {
+    heightMessage.style.display = "none";
+  }
+}
+
+function checkProductMessage() {
+  const product = document.getElementById("product").value;
+  const productMessage = document.getElementById("productMessage");
+  const warningProducts = ["Overall Jeans", "Denim Shorts", "Solving the Jeans Problem Jeans", "Overall Shorts"];
+
+  if (warningProducts.includes(product)) {
+    productMessage.style.display = "block";
+  } else {
+    productMessage.style.display = "none";
+  }
+}
+
+function init() {
+  const productDropdown = document.getElementById("product");
+  productDropdown.addEventListener("change", function () {
+    checkHeightMessage();
+    checkProductMessage();
+  });
+}
+
+window.onload = init;
+
+function calculateSize() {
+  const product = document.getElementById("product").value;
+  const bust = parseInt(document.getElementById("bust").value);
+  const waist = parseInt(document.getElementById("waist").value);
+  const hips = parseInt(document.getElementById("hips").value);
+  const output = document.getElementById("result");
+
+
+  if (product === "Overall Jeans") {
+    let waistSize, hipsSize;
+
+    if (waist >= 28 && waist <= 31) waistSize = "XS";
+    else if (waist >= 32 && waist <= 33) waistSize = "S";
+    else if (waist >= 34 && waist <= 35) waistSize = "M";
+    else if (waist >= 36 && waist <= 37) waistSize = "L";
+    else if (waist >= 38 && waist <= 39) waistSize = "XL";
+    else if (waist >= 40 && waist <= 44) waistSize = "2X";
+    else if (waist >= 45 && waist <= 46) waistSize = "3X";
+    else if (waist >= 47 && waist <= 48) waistSize = "4X";
+    else if (waist >= 49 && waist <= 52) waistSize = "5X";
+
+    if (hips >= 40 && hips <= 44) hipsSize = "XS";
+    else if (hips >= 45 && hips <= 46) hipsSize = "S";
+    else if (hips >= 47 && hips <= 48) hipsSize = "M";
+    else if (hips >= 49 && hips <= 50) hipsSize = "L";
+    else if (hips >= 51 && hips <= 52) hipsSize = "XL";
+    else if (hips >= 53 && hips <= 57) hipsSize = "2X";
+    else if (hips >= 58 && hips <= 59) hipsSize = "3X";
+    else if (hips >= 60 && hips <= 61) hipsSize = "4X";
+    else if (hips >= 62 && hips <= 64) hipsSize = "5X";
+
+    let sizes = ["XS", "S", "M", "L", "XL", "2X", "3X", "4X", "5X"];
+
+    let waistIndex = sizes.indexOf(waistSize);
+    let hipsIndex = sizes.indexOf(hipsSize);
+
+    if (waist < 28 || hips < 40) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (waist > 52 || hips > 64) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else {
+      let recommendedSize = sizes[Math.max(waistIndex, hipsIndex)];
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+  }
+
+if (product === "Overall Shorts") {
+    let waistSize, hipsSize;
+
+    if (waist >= 28 && waist <= 31) waistSize = "XS";
+    else if (waist >= 32 && waist <= 33) waistSize = "S";
+    else if (waist >= 34 && waist <= 35) waistSize = "M";
+    else if (waist >= 36 && waist <= 37) waistSize = "L";
+    else if (waist >= 38 && waist <= 39) waistSize = "XL";
+    else if (waist >= 40 && waist <= 44) waistSize = "2X";
+    else if (waist >= 45 && waist <= 46) waistSize = "3X";
+    else if (waist >= 47 && waist <= 48) waistSize = "4X";
+    else if (waist >= 49 && waist <= 52) waistSize = "5X";
+
+    if (hips >= 40 && hips <= 44) hipsSize = "XS";
+    else if (hips >= 45 && hips <= 46) hipsSize = "S";
+    else if (hips >= 47 && hips <= 48) hipsSize = "M";
+    else if (hips >= 49 && hips <= 50) hipsSize = "L";
+    else if (hips >= 51 && hips <= 52) hipsSize = "XL";
+    else if (hips >= 53 && hips <= 57) hipsSize = "2X";
+    else if (hips >= 58 && hips <= 59) hipsSize = "3X";
+    else if (hips >= 60 && hips <= 61) hipsSize = "4X";
+    else if (hips >= 62 && hips <= 64) hipsSize = "5X";
+
+    let sizes = ["XS", "S", "M", "L", "XL", "2X", "3X", "4X", "5X"];
+
+    let waistIndex = sizes.indexOf(waistSize);
+    let hipsIndex = sizes.indexOf(hipsSize);
+
+    if (waist < 28 || hips < 40) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (waist > 52 || hips > 64) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else {
+      let recommendedSize = sizes[Math.max(waistIndex, hipsIndex)];
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+  }
+
+if (product === "Perfect Match Tennis Skirt") {
+    let recommendedSize;
+
+    if (waist >= 32 && waist <= 33) recommendedSize = "S";
+    else if (waist === 34) recommendedSize = "M";
+    else if (waist >= 35 && waist <= 36) recommendedSize = "L";
+    else if (waist >= 37 && waist <= 38) recommendedSize = "XL";
+    else if (waist >= 41 && waist <= 44) recommendedSize = "2X";
+    else if (waist >= 47 && waist <= 49) recommendedSize = "3X";
+    else if (waist >= 52 && waist <= 54) recommendedSize = "4X";
+    else if (waist >= 57 && waist <= 60) recommendedSize = "5X";
+    else if (waist >= 63 && waist <= 65) recommendedSize = "6X";
+
+    if (waist < 32) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (waist > 65) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else if (waist === 39 || waist === 40) {
+      output.innerText = "You seem to fall in between XL and 2X. Please send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+    } else if (waist === 45 || waist === 46) {
+      output.innerText = "You seem to fall in between 2X and 3X. Please send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+    } else if (waist === 50 || waist === 51) {
+      output.innerText = "You seem to fall in between 3X and 4X. Please send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+    } else if (waist === 55 || waist === 56) {
+      output.innerText = "You seem to fall in between 4X and 5X. Please send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+    } else if (waist === 61 || waist === 62) {
+      output.innerText = "You seem to fall in between 5X and 6X. Please send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+    } else {
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+}
+
+if (product === "Zip-Up Hoodie") {
+    let recommendedSize;
+
+    if (bust >= 29 && bust <= 33) recommendedSize = "S for an oversized look.";
+    else if (bust >= 34 && bust <= 37) recommendedSize = "M for an oversized look, S for a less oversized look.";
+    else if (bust >= 38 && bust <= 41) recommendedSize = "L for an oversized look, M for a less oversized look.";
+    else if (bust >= 42 && bust <= 45) recommendedSize = "XL for an oversized look, L for a less oversized look.";
+    else if (bust >= 46 && bust <= 49) recommendedSize = "2X for an oversized look, XL for a less oversized look.";
+    else if (bust >= 50 && bust <= 53) recommendedSize = "3X for an oversized look, 2X for a less oversized look.";
+    else if (bust >= 54 && bust <= 57) recommendedSize = "4X for an oversized look, 3X for a less oversized look.";
+    else if (bust >= 58 && bust <= 61) recommendedSize = "5X for an oversized look, 4X for a less oversized look.";
+    else if (bust >= 62 && bust <= 65) recommendedSize = "6X for an oversized look, 5X for a less oversized look.";
+    else if (bust >= 66 && bust <= 69) recommendedSize = "6X for a less oversized look.";
+
+    if (bust < 29) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (bust > 69) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else {
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+}
+
+if (product === "Go-Getter Cropped Tee") {
+    let recommendedSize;
+
+    if (bust >= 30 && bust <= 33) recommendedSize = "S for a roomier fit.";
+    else if (bust >= 34 && bust <= 36) recommendedSize = "S";
+    else if (bust >= 37 && bust <= 38) recommendedSize = "S for a tighter fit, M for a roomier fit.";
+    else if (bust >= 39 && bust <= 40) recommendedSize = "M for a tighter fit, L for a roomier fit.";
+    else if (bust >= 41 && bust <= 42) recommendedSize = "L for a tighter fit, XL for a roomier fit.";
+    else if (bust >= 43 && bust <= 44) recommendedSize = "XL for a tighter fit, 2X for a roomier fit.";
+    else if (bust === 45) recommendedSize = "2X";
+    else if (bust >= 46 && bust <= 47) recommendedSize = "2X for a tighter fit, 3X for a roomier fit.";
+    else if (bust >= 48 && bust <= 50) recommendedSize = "3X";
+    else if (bust === 51) recommendedSize = "3X for a tighter fit, 4X for a roomier fit.";
+    else if (bust >= 52 && bust <= 54) recommendedSize = "4X";
+    else if (bust >= 55 && bust <= 57) recommendedSize = "4X for a tighter fit, 5X for a roomier fit.";
+    else if (bust >= 58 && bust <= 61) recommendedSize = "5X";
+    else if (bust >= 62 && bust <= 64) recommendedSize = "5X for a tighter fit, 6X for a roomier fit.";
+    else if (bust >= 65 && bust <= 71) recommendedSize = "6X";
+
+    if (bust < 30) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (bust > 71) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else {
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+}
+
+if (product === "Sweater Vest") {
+    let recommendedSize;
+
+    if (bust >= 30 && bust <= 36) recommendedSize = "S for a roomy fit.";
+    else if (bust >= 37 && bust <= 38) recommendedSize = "S for a closer fit, M for a roomier fit.";
+    else if (bust >= 39 && bust <= 41) recommendedSize = "M for a closer fit, L for a roomier fit.";
+    else if (bust >= 42 && bust <= 44) recommendedSize = "L for a closer fit, XL for a roomier fit.";
+    else if (bust >= 45 && bust <= 47) recommendedSize = "XL for a closer fit, 2X for a roomier fit.";
+    else if (bust >= 48 && bust <= 49) recommendedSize = "2X for a closer fit, 3X for a roomier fit.";
+    else if (bust >= 50 && bust <= 52) recommendedSize = "3X for a closer fit, 4X for a roomier fit.";
+    else if (bust >= 53 && bust <= 55) recommendedSize = "4X for a closer fit, 5X for a roomier fit.";
+    else if (bust >= 56 && bust <= 59) recommendedSize = "5X for a closer fit, 6X for a roomier fit.";
+    else if (bust >= 60 && bust <= 65) recommendedSize = "6X for a closer fit.";
+
+    if (bust < 30) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (bust > 65) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else {
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+}
+
+if (product === "Corduroy Jacket") {
+    let recommendedSize;
+
+    if (bust >= 28 && bust <= 34) recommendedSize = "S for an oversized fit, as intended for this product.";
+    else if (bust >= 35 && bust <= 38) recommendedSize = "M for an oversized fit, as intended for this product.";
+    else if (bust >= 39 && bust <= 41) recommendedSize = "L for an oversized fit, as intended for this product.";
+    else if (bust >= 42 && bust <= 45) recommendedSize = "XL for an oversized fit, as intended for this product.";
+    else if (bust >= 46 && bust <= 47) recommendedSize = "XL for a closer fit, 2X for an oversized fit.";
+    else if (bust >= 48 && bust <= 50) recommendedSize = "2X for an oversized fit, as intended for this product.";
+    else if (bust === 51) recommendedSize = "2X for a closer fit, 3X for an oversized fit.";
+    else if (bust >= 52 && bust <= 54) recommendedSize = "3X for an oversized fit, as intended for this product.";
+    else if (bust === 55) recommendedSize = "3X for a closer fit, 4X for an oversized fit.";
+    else if (bust >= 56 && bust <= 58) recommendedSize = "4X for an oversized fit, as intended for this product.";
+    else if (bust === 59) recommendedSize = "4X for a closer fit, 5X for an oversized fit.";
+    else if (bust >= 60 && bust <= 62) recommendedSize = "5X for an oversized fit, as intended for this product.";
+    else if (bust === 63) recommendedSize = "5X for a closer fit, 6X for an oversized fit.";
+    else if (bust >= 64 && bust <= 66) recommendedSize = "6X for an oversized fit, as intended for this product.";
+    else if (bust >= 67 && bust <= 70) recommendedSize = "6X for a closer fit.";
+
+    if (bust < 28) {
+      output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+    } else if (bust > 70) {
+      output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+    } else {
+      output.innerText = "Our recommendation: " + recommendedSize;
+    }
+}
+
+if (product === "Solving the Jeans Problem Jeans") {
+  const sizeMap = ['XS', 'S', 'M', 'L', 'XL', '2X', '3X', '4X', '5X'];
+  let recommendedSizeA, recommendedSizeB;
+
+  if (waist >= 26 && waist <= 31) recommendedSizeA = 'XS';
+  else if (waist >= 32 && waist <= 33) recommendedSizeA = 'S';
+  else if (waist >= 34 && waist <= 35) recommendedSizeA = 'M';
+  else if (waist >= 36 && waist <= 37) recommendedSizeA = 'L';
+  else if (waist >= 38 && waist <= 39) recommendedSizeA = 'XL';
+  else if (waist >= 41 && waist <= 44) recommendedSizeA = '2X';
+  else if (waist >= 45 && waist <= 46) recommendedSizeA = '3X';
+  else if (waist >= 47 && waist <= 49) recommendedSizeA = '4X';
+  else if (waist >= 50 && waist <= 53) recommendedSizeA = '5X';
+
+  if (hips >= 25 && hips <= 43) recommendedSizeB = 'XS';
+  else if (hips >= 44 && hips <= 46) recommendedSizeB = 'S';
+  else if (hips >= 47 && hips <= 48) recommendedSizeB = 'M';
+  else if (hips >= 49 && hips <= 50) recommendedSizeB = 'L';
+  else if (hips >= 51 && hips <= 53) recommendedSizeB = 'XL';
+  else if (hips >= 54 && hips <= 57) recommendedSizeB = '2X';
+  else if (hips >= 58 && hips <= 60) recommendedSizeB = '3X';
+  else if (hips >= 61 && hips <= 62) recommendedSizeB = '4X';
+  else if (hips >= 63 && hips <= 65) recommendedSizeB = '5X';
+
+  const indexA = sizeMap.indexOf(recommendedSizeA);
+  const indexB = sizeMap.indexOf(recommendedSizeB);
+
+  if (waist < 26) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (waist > 53 || hips > 65) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (waist === 40 && hips > 53) {
+    output.innerText = "Our recommendation: " + recommendedSizeB + " but it will be roomy in the waist. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+  } else if (waist === 40 && hips < 54) {
+    output.innerText = "You seem to fall right in between XL and 2X. XL might work as a tighter fit in the waist, and 2X might work as a looser fit in the waist. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+  } else if (indexA > indexB) {
+    output.innerText = "Our recommendation: " + recommendedSizeA + " but it will be roomy in the hips. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+} else if (indexB > indexA) {
+output.innerText = "Our recommendation: " + recommendedSizeB + " but it will be roomy in the waist. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+} else {
+output.innerText = "Our recommendation: " + recommendedSizeA;
+}
+}
+
+if (product === "Denim Shorts") {
+  const sizeMap = ['XS', 'S', 'M', 'L', 'XL', '2X', '3X', '4X', '5X'];
+  let recommendedSizeA, recommendedSizeB;
+
+  if (waist >= 26 && waist <= 31) recommendedSizeA = 'XS';
+  else if (waist >= 32 && waist <= 33) recommendedSizeA = 'S';
+  else if (waist >= 34 && waist <= 35) recommendedSizeA = 'M';
+  else if (waist >= 36 && waist <= 37) recommendedSizeA = 'L';
+  else if (waist >= 38 && waist <= 39) recommendedSizeA = 'XL';
+  else if (waist >= 41 && waist <= 44) recommendedSizeA = '2X';
+  else if (waist >= 45 && waist <= 46) recommendedSizeA = '3X';
+  else if (waist >= 47 && waist <= 49) recommendedSizeA = '4X';
+  else if (waist >= 50 && waist <= 53) recommendedSizeA = '5X';
+
+  if (hips >= 25 && hips <= 43) recommendedSizeB = 'XS';
+  else if (hips >= 44 && hips <= 46) recommendedSizeB = 'S';
+  else if (hips >= 47 && hips <= 48) recommendedSizeB = 'M';
+  else if (hips >= 49 && hips <= 50) recommendedSizeB = 'L';
+  else if (hips >= 51 && hips <= 53) recommendedSizeB = 'XL';
+  else if (hips >= 54 && hips <= 57) recommendedSizeB = '2X';
+  else if (hips >= 58 && hips <= 60) recommendedSizeB = '3X';
+  else if (hips >= 61 && hips <= 62) recommendedSizeB = '4X';
+  else if (hips >= 63 && hips <= 65) recommendedSizeB = '5X';
+
+  const indexA = sizeMap.indexOf(recommendedSizeA);
+  const indexB = sizeMap.indexOf(recommendedSizeB);
+
+  if (waist < 26) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (waist > 53 || hips > 65) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (waist === 40 && hips > 53) {
+    output.innerText = "Our recommendation: " + recommendedSizeB + " but it will be roomy in the waist. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+  } else if (waist === 40 && hips < 54) {
+    output.innerText = "You seem to fall right in between XL and 2X. XL might work as a tighter fit in the waist, and 2X might work as a looser fit in the waist. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+  } else if (indexA > indexB) {
+    output.innerText = "Our recommendation: " + recommendedSizeA + " but it will be roomy in the hips. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+} else if (indexB > indexA) {
+output.innerText = "Our recommendation: " + recommendedSizeB + " but it will be roomy in the waist. Feel free to send us an email at shinybynature@gmail.com for a more personalized recommendation.";
+} else {
+output.innerText = "Our recommendation: " + recommendedSizeA;
+}
+}
+
+else if (product === "Corduroy Dress") {
+  if (bust < 30) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (bust > 70) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (bust >= 30 && bust <= 32) {
+    output.innerText = "Our recommendation: S for an oversized fit.";
+  } else if (bust >= 33 && bust <= 35) {
+    output.innerText = "Our recommendation: S";
+  } else if (bust === 36) {
+    output.innerText = "Our recommendation: S for a closer fit, M for a more oversized fit.";
+  } else if (bust >= 37 && bust <= 38) {
+    output.innerText = "Our recommendation: M";
+  } else if (bust === 39) {
+    output.innerText = "Our recommendation: M for a closer fit, L for a more oversized fit.";
+  } else if (bust >= 40 && bust <= 41) {
+    output.innerText = "Our recommendation: L";
+  } else if (bust === 42) {
+    output.innerText = "Our recommendation: L for a closer fit, XL for a more oversized fit.";
+  } else if (bust >= 43 && bust <= 44) {
+    output.innerText = "Our recommendation: XL";
+  } else if (bust >= 45 && bust <= 46) {
+    output.innerText = "Our recommendation: XL for a closer fit, 2X for an oversized fit.";
+  } else if (bust === 47) {
+    output.innerText = "Our recommendation: 2X for an oversized fit.";
+  } else if (bust >= 48 && bust <= 49) {
+    output.innerText = "Our recommendation: 2X";
+  } else if (bust >= 50 && bust <= 51) {
+    output.innerText = "Our recommendation: 2X for a closer fit, 3X for a more oversized fit.";
+  } else if (bust === 52) {
+    output.innerText = "Our recommendation: 3X";
+  } else if (bust >= 53 && bust <= 54) {
+    output.innerText = "Our recommendation: 3X for a closer fit, 4X for a more oversized fit.";
+  } else if (bust === 55) {
+    output.innerText = "Our recommendation: 4X";
+  } else if (bust >= 56 && bust <= 58) {
+    output.innerText = "Our recommendation: 4X for a closer fit, 5X for a more oversized fit.";
+  } else if (bust === 59) {
+    output.innerText = "Our recommendation: 5X";
+  } else if (bust >= 60 && bust <= 61) {
+    output.innerText = "Our recommendation: 5X for a closer fit, 6X for a more oversized fit.";
+  } else if (bust === 62) {
+    output.innerText = "Our recommendation: 6X";
+  } else if (bust >= 63 && bust <= 65) {
+    output.innerText = "Our recommendation: 6X for a closer fit.";
+  } else {
+        output.innerText = "Our recommendation: 6X";
+  }
+}
+
+else if (product === "Suncatcher Tee") {
+  if (bust < 25) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (bust > 76) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (bust >= 25 && bust <= 34) {
+    output.innerText = "Our recommendation: S for an oversized fit.";
+  } else if (bust >= 35 && bust <= 36) {
+    output.innerText = "Our recommendation: S";
+  } else if (bust >= 37 && bust <= 38) {
+    output.innerText = "Our recommendation: S for a closer fit, M for a looser fit.";
+  } else if (bust >= 39 && bust <= 40) {
+    output.innerText = "Our recommendation: M for a closer fit, L for a looser fit.";
+  } else if (bust >= 41 && bust <= 42) {
+    output.innerText = "Our recommendation: L for a closer fit, XL for a looser fit.";
+  } else if (bust >= 43 && bust <= 44) {
+    output.innerText = "Our recommendation: XL for a closer fit, 2X for a looser fit.";
+  } else if (bust >= 45 && bust <= 48) {
+    output.innerText = "Our recommendation: XL";
+  } else if (bust >= 49 && bust <= 50) {
+    output.innerText = "Our recommendation: 2X for a closer fit, 3X for a looser fit.";
+  } else if (bust >= 51 && bust <= 54) {
+    output.innerText = "Our recommendation: 3X";
+  } else if (bust >= 55 && bust <= 56) {
+    output.innerText = "Our recommendation: 3X for a closer fit, 4X for a looser fit.";
+  } else if (bust >= 57 && bust <= 59) {
+    output.innerText = "Our recommendation: 4X";
+  } else if (bust >= 60 && bust <= 61) {
+    output.innerText = "Our recommendation: 4X for a closer fit, 5X for a looser fit.";
+  } else if (bust >= 62 && bust <= 65) {
+    output.innerText = "Our recommendation: 5X";
+  } else if (bust >= 66 && bust <= 67) {
+    output.innerText = "Our recommendation: 5X for a closer fit, 6X for a looser fit.";
+  } else if (bust >= 68 && bust <= 71) {
+    output.innerText = "Our recommendation: 6X";
+  } else if (bust >= 72 && bust <= 76) {
+    output.innerText = "Our recommendation: 6X for a tighter fit.";
+  } else {
+    output.innerText = "Our recommendation: 6X";
+  }
+}
+
+else if (product === "Tank Top") {
+  if (bust < 25) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (bust > 71) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (bust >= 25 && bust <= 33) {
+    output.innerText = "Our recommendation: XS";
+  } else if (bust >= 34 && bust <= 35) {
+    output.innerText = "Our recommendation: XS or S depending on your preferred length and tightness";
+  } else if (bust >= 36 && bust <= 37) {
+    output.innerText = "Our recommendation: XS, S or M depending on your preferred length and tightness";
+  } else if (bust >= 38 && bust <= 39) {
+    output.innerText = "Our recommendation: S, M or L depending on your preferred length and tightness";
+  } else if (bust >= 40 && bust <= 41) {
+    output.innerText = "Our recommendation: M, L or XL depending on your preferred length and tightness";
+  } else if (bust >= 42 && bust <= 44) {
+    output.innerText = "Our recommendation: L, XL or 2X depending on your preferred length and tightness";
+  } else if (bust >= 45 && bust <= 48) {
+    output.innerText = "Our recommendation: XL, 2X or 3X depending on your preferred length and tightness";
+  } else if (bust >= 49 && bust <= 53) {
+    output.innerText = "Our recommendation: 2X, 3X or 4X depending on your preferred length and tightness";
+  } else if (bust >= 54 && bust <= 57) {
+    output.innerText = "Our recommendation: 3X, 4X or 5X depending on your preferred length and tightness";
+  } else if (bust >= 58 && bust <= 61) {
+    output.innerText = "Our recommendation: 4X, 5X or 6X depending on your preferred length and tightness";
+  } else if (bust >= 62 && bust <= 66) {
+    output.innerText = "Our recommendation: 5X or 6X depending on your preferred length and tightness";
+  } else if (bust >= 67 && bust <= 71) {
+    output.innerText = "Our recommendation: 6X";
+  } else {
+    output.innerText = "Our recommendation: 6X";
+  }
+}
+
+else if (product === "Gingham Dress") {
+  if (bust < 25) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (bust > 67) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (bust >= 25 && bust <= 36) {
+    output.innerText = "Our recommendation: S for an oversized fit";
+  } else if (bust === 37 || bust === 38) {
+    output.innerText = "Our recommendation: S";
+  } else if (bust === 39 || bust === 40) {
+    output.innerText = "Our recommendation: S for a closer fit, M for a looser fit";
+  } else if (bust === 41 || bust === 42) {
+    output.innerText = "Our recommendation: M for a closer fit, L for a looser fit";
+  } else if (bust === 43 || bust === 44) {
+    output.innerText = "Our recommendation: L for a closer fit, XL for a looser fit";
+  } else if (bust === 45 || bust === 46) {
+    output.innerText = "Our recommendation: XL";
+  } else if (bust >= 47 && bust <= 49) {
+    output.innerText = "Our recommendation: 2X";
+  } else if (bust === 50) {
+    output.innerText = "Our recommendation: 2X for a closer fit, 3X for a looser fit";
+  } else if (bust >= 51 && bust <= 53) {
+    output.innerText = "Our recommendation: 3X";
+  } else if (bust === 54) {
+    output.innerText = "Our recommendation: 3X for a closer fit, 4X for a looser fit";
+  } else if (bust >= 55 && bust <= 57) {
+    output.innerText = "Our recommendation: 4X";
+  } else if (bust === 58) {
+    output.innerText = "Our recommendation: 4X for a closer fit, 5X for a looser fit";
+  } else if (bust >= 59 && bust <= 62) {
+    output.innerText = "Our recommendation: 5X";
+  } else if (bust === 63) {
+    output.innerText = "Our recommendation: 5X for a closer fit, 6X for a looser fit";
+  } else if (bust >= 64 && bust <= 67) {
+    output.innerText = "Our recommendation: 6X";
+  }
+}
+
+else if (product === "Gingham Long Skirt") {
+  if (hips < 40) {
+    output.innerText = "It seems like even our smallest size is a bit too large for you. We are working on further expanding our size range!";
+  } else if (hips > 63) {
+    output.innerText = "It seems like even our biggest size is a bit too small for you. We are working on further expanding our size range!";
+  } else if (hips >= 40 && hips <= 44) {
+    output.innerText = "Our recommendation: XS for a roomy fit";
+  } else if (hips === 45 || hips === 46) {
+    output.innerText = "Our recommendation: XS";
+  } else if (hips === 47 || hips === 48) {
+    output.innerText = "Our recommendation: S";
+  } else if (hips === 49 || hips === 50) {
+    output.innerText = "Our recommendation: M";
+  } else if (hips === 51 || hips === 52) {
+    output.innerText = "Our recommendation: L";
+  } else if (hips === 53 || hips === 54) {
+    output.innerText = "Our recommendation: XL";
+  } else if (hips === 55 || hips === 56) {
+    output.innerText = "Our recommendation: 2X";
+  } else if (hips === 57 || hips === 58) {
+    output.innerText = "Our recommendation: 3X";
+  } else if (hips >= 59 && hips <= 61) {
+    output.innerText = "Our recommendation: 4X";
+  } else if (hips === 62 || hips === 63) {
+    output.innerText = "Our recommendation: 5X";
+  }
+}
+
+
+
+}
+// ]]></script>
+
+
